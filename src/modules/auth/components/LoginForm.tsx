@@ -19,7 +19,7 @@ export function LoginForm() {
   const handleLogin = async (formData: FormData) => {
     const result = await login(formData);
     if (!result.success) {
-      alert(`Error: ${result.message}`);
+      alert(`${result.message}`);
     } else {
       alert("Inicio de sesión exitoso");
     }
