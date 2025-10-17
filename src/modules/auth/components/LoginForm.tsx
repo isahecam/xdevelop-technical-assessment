@@ -1,16 +1,30 @@
+"use client";
+
+import { login } from "@/app/_actions/login";
 import {
   Button,
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
   Input,
   Label,
 } from "@/shared/ui/";
+import { useRef } from "react";
 
 export function LoginForm() {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleLogin = async (formData: FormData) => {
+    const result = await login(formData);
+    if (!result.success) {
+      alert(`Error: ${result.message}`);
+    } else {
+      alert("Inicio de sesión exitoso");
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -20,11 +34,12 @@ export function LoginForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        <form className='space-y-6' ref={formRef} action={handleLogin}>
           <div className='flex flex-col gap-6'>
             <div className='grid gap-2'>
               <Label htmlFor='email'>Correo</Label>
               <Input
+                name='email'
                 id='email'
                 type='email'
                 placeholder='m@example.com'
@@ -35,19 +50,29 @@ export function LoginForm() {
               <Label htmlFor='password'>Contraseña</Label>
               <Input
                 id='password'
+                name='password'
                 type='password'
                 placeholder='Tu contraseña'
                 required
               />
             </div>
           </div>
+          <Button type='submit' className='w-full bg-purple-800'>
+            Iniciar sesión
+          </Button>
         </form>
+
+        {/* <form
+          action={async () => {
+            "use server";
+            await logout();
+            redirect("/");
+          }}>
+          <Button type='submit' className='w-full bg-purple-800'>
+            Cerrar sesión
+          </Button>
+        </form> */}
       </CardContent>
-      <CardFooter className='flex-col gap-2'>
-        <Button type='submit' className='w-full bg-purple-800'>
-          Iniciar sesión
-        </Button>
-      </CardFooter>
     </Card>
   );
 }
