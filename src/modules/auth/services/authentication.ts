@@ -1,5 +1,10 @@
+import {
+  AuthResponse,
+  AuthToken,
+  Credentials,
+  User,
+} from "@/modules/auth/types/auth.types";
 import "server-only";
-import { AuthToken, Credentials } from "@/modules/auth/types/auth.types";
 
 /**
  * Inicio de sesión del usuario, a través de ReqRes API
@@ -10,13 +15,12 @@ import { AuthToken, Credentials } from "@/modules/auth/types/auth.types";
  * @async
  * @function signIn
  * @param {Credentials} credentials - Objeto con email y password del usuario
- * @returns {Promise<AuthToken | null>} - Promesa que resuelve con el token de acceso o `null` si falla
+ * @returns {Promise<AuthResponse | null>} - Promesa que resuelve el token de autenticación y la información del usuario, o null si falla
  * @throws {Error} Si la autenticación falla o la API devuelve un error.
  *
  */
-export async function signIn(
-  credentials: Credentials,
-): Promise<AuthToken | null> {
+export async function signIn(credentials: Credentials): Promise<AuthResponse> {
+  // Petición al endpoint de login de ReqRes, (no retorna usuario, solo el token)
   const res = await fetch("https://reqres.in/api/login", {
     method: "POST",
     headers: {
@@ -31,7 +35,21 @@ export async function signIn(
     throw new Error(error.error || "Error en la autenticación");
   }
 
-  const data = (await res.json()) as AuthToken;
+  // Extraemos el token de la respuesta
+  const { token } = await res.json();
 
-  return { token: data.token };
+  // Simulamos la obtención de la data del usuario autenticado
+  const userRes = await fetch("https://reqres.in/api/users/1", {
+    method: "GET",
+    headers: {
+      "x-api-key": process.env.REQRES_API_KEY!,
+    },
+  });
+
+  const { data }: { data: User } = await userRes.json();
+  if (!data) {
+    throw new Error("Error al obtener la información del usuario");
+  }
+
+  return { token, user: data };
 }
