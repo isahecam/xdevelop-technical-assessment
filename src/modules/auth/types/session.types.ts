@@ -4,10 +4,10 @@ export interface ActionResult {
   message?: string;
 }
 
-/** Representa el payload almacenado en el JWT de sesión */
-export interface SessionPayload {
-  sub: string;
-  name: string;
-  email: boolean;
+/** Representa la sesión del usuario */
+export interface UserSession {
+  userId: string;
+  expiresAt: string;
   iat: number;
+  exp: number;
 }
