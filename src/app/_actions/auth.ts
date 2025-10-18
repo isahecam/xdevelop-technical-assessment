@@ -45,8 +45,11 @@ export async function login(formData: FormData): Promise<ActionResult> {
   // Creamos una session del usuario almacenando el token en una cookie HTTP-only
   await createSession(email);
 
-  redirect("/users");
-  // return { success: true };
+  if (!externalAuth) {
+    return { success: false, message: "Error al iniciar sesión" };
+  }
+
+  return { success: true, message: "Inicio de sesión exitoso" };
 }
 
 export async function logout() {
