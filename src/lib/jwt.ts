@@ -1,32 +1,43 @@
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
+import { SessionPayload } from "@/modules/auth/types/session.types";
 
 /**
- * Clave secreta para firmar y verificar los JWT
+ * @constant {string} secretKey - Clave secreta para JWT firmar y
+ * verificar los JWT de sesión
  */
-const secretKey = process.env.JWT_SECRET_KEY!;
-const key = new TextEncoder().encode(secretKey);
+const secretKey = process.env.SESSION_SECRET!;
 
 /**
- * Función para encriptar el cuerpo del JWT
+ * @constant {Uint8Array} encodedKey - Clave convertida a formato Uint8Array,
+ * para usarse en en el algoritmo de firma (HS256).
+ */
+const encodedKey = new TextEncoder().encode(secretKey);
+
+/**
+ * Función para encriptar el cuerpo del JWT de sesión
  * @param payload - Cuerpo del JWT
  * @returns - Token JWT encriptado
  */
-export async function encryptToken(payload: any) {
+export async function encrypt(payload: JWTPayload) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("15 minutes")
-    .sign(key);
+    .setExpirationTime("7d")
+    .sign(encodedKey);
 }
 
 /**
- * Función para verificar y decodificar un token JWT
- * @param token - Token JWT a verificar
+ * Función para verificar y desencriptar el token JWT de sesión
+ * @param session - Token JWT de la sesión a verificar, por defecto cadena vacía
  * @returns - Cuerpo decodificado del JWT
  */
-export async function decryptToken(input: string): Promise<any> {
-  const { payload } = await jwtVerify(input, key, {
-    algorithms: ["HS256"],
-  });
-  return payload;
+export async function decrypt(session: string | undefined = "") {
+  try {
+    const { payload } = await jwtVerify(session, encodedKey, {
+      algorithms: ["HS256"],
+    });
+    return payload;
+  } catch (error) {
+    console.log("Failed to verify session");
+  }
 }
