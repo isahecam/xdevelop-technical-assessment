@@ -11,7 +11,7 @@ export async function middlewareAuth(request: NextRequest) {
   // Revisar si la ruta actual es protegida o pública
   const path = request.nextUrl.pathname;
 
-  // Lógica de redirección basada en el estado de la sesión y la ruta
+  // Revisar si la ruta es protegida o pública
   const isProtectedRoute = PROTECTED_ROUTES.includes(path);
   const isPublicRoute = PUBLIC_ROUTES.includes(path);
 
