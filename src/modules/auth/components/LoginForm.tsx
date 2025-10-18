@@ -1,6 +1,6 @@
 "use client";
 
-import { login } from "@/app/_actions/login";
+import { login } from "@/app/_actions/auth";
 import {
   Button,
   Card,
@@ -11,9 +11,12 @@ import {
   Input,
   Label,
 } from "@/shared/ui/";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
 export function LoginForm() {
+  const router = useRouter();
+
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleLogin = async (formData: FormData) => {
@@ -21,6 +24,7 @@ export function LoginForm() {
     if (!result.success) {
       alert(`${result.message}`);
     } else {
+      router.push("/users");
       alert("Inicio de sesión exitoso");
     }
   };
