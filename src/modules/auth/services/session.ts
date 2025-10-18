@@ -33,8 +33,6 @@ export async function getSession() {
   const payload = await decrypt(session);
   if (!payload) return null;
 
-  console.log(payload);
-
   return payload as unknown as UserSession;
 }
 
