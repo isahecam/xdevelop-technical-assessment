@@ -11,5 +11,8 @@ export function UsersTable() {
     queryFn: getUsers,
   });
 
+  if (isLoading) return <div>Cargando usuarios...</div>;
+  if (error) return <div>Error al cargar los usuarios.</div>;
+
   return <DataTable columns={columns} data={data ?? []} />;
 }

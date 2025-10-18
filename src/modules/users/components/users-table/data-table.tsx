@@ -4,15 +4,14 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
-  useReactTable,
-  getPaginationRowModel,
-  ColumnFiltersState,
   getFilteredRowModel,
+  getPaginationRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
 
 import {
-  Input,
   Button,
+  Input,
   Table,
   TableBody,
   TableCell,
@@ -20,7 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/shared/ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
