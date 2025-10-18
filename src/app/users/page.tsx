@@ -1,13 +1,28 @@
-export default async function Users() {
-  return (
-    <main className='mx-auto grid min-h-screen max-w-4xl place-content-center items-center gap-y-12 p-4'>
-      <h1 className='text-center text-xl font-bold text-purple-700'>
-        Página de Usuarios - (Página Protegida)
-      </h1>
+import { getSession } from "@/modules/auth/services/session";
+import { UsersTable } from "@/modules/users/components/records/users-table";
+import { UserProfile } from "@/modules/users/components/UserProfile";
+import { getUser } from "@/modules/users/services/getUser";
+import { getUserPublicInfo } from "@/modules/users/services/getUserPublicInfo";
+import { redirect } from "next/navigation";
 
-      <section className='mx-auto w-full max-w-80'>
-        <h3>Lista de Usuarios</h3>
-      </section>
+export default async function Users() {
+  const session = await getSession();
+  if (!session) redirect("/");
+
+  const user = await getUser(parseInt(session.userId));
+  if (!user) redirect("/");
+
+  return (
+    <main className='mx-auto grid min-h-screen max-w-4xl gap-y-12 p-4'>
+      <header className='inline-flex items-center gap-x-2'>
+        <h1 className='text-center text-xl font-bold text-purple-700'>
+          Página de Usuarios - (Página Protegida)
+        </h1>
+
+        <UserProfile {...user} />
+      </header>
+
+      <UsersTable />
     </main>
   );
 }
