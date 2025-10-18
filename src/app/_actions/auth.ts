@@ -35,20 +35,21 @@ export async function login(formData: FormData): Promise<ActionResult> {
   const { email, password } = data;
 
   // Realizamos el intento de inicio de sesión, obteniendo el token de autenticación
-  const externalAuth = await signIn({ email, password });
-
-  // Si no se obtiene un token, retornamos un error
-  if (!externalAuth?.token) {
-    return { success: false, message: "Error al iniciar sesión" };
+  try {
+    const externalAuth = await signIn({ email, password });
+    if (!externalAuth) {
+      return { success: false, message: "Error al iniciar sesión" };
+    }
+  } catch (error: unknown) {
+    return {
+      success: false,
+      message:
+        error instanceof Error ? error.message : "Error al iniciar sesión",
+    };
   }
 
   // Creamos una session del usuario almacenando el token en una cookie HTTP-only
   await createSession(email);
-
-  if (!externalAuth) {
-    return { success: false, message: "Error al iniciar sesión" };
-  }
-
   return { success: true, message: "Inicio de sesión exitoso" };
 }
 
