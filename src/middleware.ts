@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
     return authResponse;
   }
 
-  return await updateSession(request);
+  return await updateSession();
 }
 
 export const config = {
