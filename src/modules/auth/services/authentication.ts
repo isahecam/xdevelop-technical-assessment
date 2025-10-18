@@ -1,3 +1,4 @@
+import "server-only";
 import { AuthToken, Credentials } from "@/modules/auth/types/auth.types";
 
 /**
