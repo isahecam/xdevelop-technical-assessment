@@ -1,15 +1,19 @@
 import { type NextRequest } from "next/server";
 import { updateSession } from "./modules/auth/services/session";
+import { middlewareAuth } from "./modules/auth/services/middleware";
 
 /**
  * Middleware para manejar la sesión del usuario,
  * así como la actualización de tiemp del token JWT.
  * @param request - NextRequest del usuario
- * @returns Respuesta con la sesión actualizada
+ * @returns Respuesta con la sesión y el token JWT actualizados
  */
 export async function middleware(request: NextRequest) {
-  // Actualizar la sesión del usuario en cada solicitud
-  console.log("Middleware is executing...");
+  const authResponse = await middlewareAuth(request);
+  if (authResponse) {
+    return authResponse;
+  }
+
   return await updateSession(request);
 }
 
