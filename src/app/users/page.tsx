@@ -2,7 +2,6 @@ import { getSession } from "@/modules/auth/services/session";
 import { UsersTable } from "@/modules/users/components/records/users-table";
 import { UserProfile } from "@/modules/users/components/UserProfile";
 import { getUser } from "@/modules/users/services/getUser";
-import { getUserPublicInfo } from "@/modules/users/services/getUserPublicInfo";
 import { redirect } from "next/navigation";
 
 export default async function Users() {
