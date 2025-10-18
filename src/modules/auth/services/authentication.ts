@@ -2,8 +2,8 @@ import {
   AuthResponse,
   AuthToken,
   Credentials,
-  User,
 } from "@/modules/auth/types/auth.types";
+import { UserResponse } from "@/modules/users/types/user.types";
 import "server-only";
 
 /**
@@ -36,7 +36,7 @@ export async function signIn(credentials: Credentials): Promise<AuthResponse> {
   }
 
   // Extraemos el token de la respuesta
-  const { token } = await res.json();
+  const token = (await res.json()) as AuthToken;
 
   // Simulamos la obtención de la data del usuario autenticado
   const userRes = await fetch("https://reqres.in/api/users/1", {
@@ -46,10 +46,11 @@ export async function signIn(credentials: Credentials): Promise<AuthResponse> {
     },
   });
 
-  const { data }: { data: User } = await userRes.json();
-  if (!data) {
+  const response: UserResponse = await userRes.json();
+
+  if (!response.data) {
     throw new Error("Error al obtener la información del usuario");
   }
 
-  return { token, user: data };
+  return { token, user: response.data };
 }
