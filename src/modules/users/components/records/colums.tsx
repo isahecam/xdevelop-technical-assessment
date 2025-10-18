@@ -1,8 +1,8 @@
 "use client";
 
-import { ColumnDef, FilterFn } from "@tanstack/react-table";
 import { User } from "@/modules/users/types/user.types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui";
+import { ColumnDef } from "@tanstack/react-table";
 
 export const columns: ColumnDef<User>[] = [
   {
