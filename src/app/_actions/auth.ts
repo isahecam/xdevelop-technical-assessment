@@ -1,10 +1,10 @@
 "use server";
 
-import { encryptToken } from "@/lib/jwt";
 import { loginSchema } from "@/modules/auth/schemas/loginSchema";
-import { signIn } from "@/modules/auth/services/signIn";
+import { createSession, deleteSession } from "@/modules/auth/services/session";
+import { signIn } from "@/modules/auth/services/authentication";
 import { ActionResult } from "@/modules/auth/types/session.types";
-import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 /**
  * Server action que maneja el inicio de sesión de un usuario
@@ -43,11 +43,13 @@ export async function login(formData: FormData): Promise<ActionResult> {
   }
 
   // Creamos una session del usuario almacenando el token en una cookie HTTP-only
-  const expires = new Date(Date.now() + 10 * 1000); // Expiración de la cookie en 10 segundos
-  const session = await encryptToken({ token: externalAuth?.token, expires }); // Encriptamos el access con JWT
+  await createSession(email);
 
-  // Almacenamos la cookie de sesión, HTTP-only
-  (await cookies()).set("session", session, { expires, httpOnly: true });
+  redirect("/users");
+  // return { success: true };
+}
 
-  return { success: true };
+export async function logout() {
+  await deleteSession();
+  redirect("/login");
 }
