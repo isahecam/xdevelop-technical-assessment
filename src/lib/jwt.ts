@@ -1,5 +1,5 @@
+import { UserSession } from "@/modules/auth/types/session.types";
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
-import { SessionPayload } from "@/modules/auth/types/session.types";
 
 /**
  * @constant {string} secretKey - Clave secreta para JWT firmar y
@@ -33,12 +33,12 @@ export async function encrypt(payload: JWTPayload): Promise<string> {
  */
 export async function decrypt(
   session: string | undefined = "",
-): Promise<SessionPayload | null> {
+): Promise<UserSession | null> {
   try {
     const { payload } = await jwtVerify(session, encodedKey, {
       algorithms: ["HS256"],
     });
-    return payload as unknown as SessionPayload;
+    return payload as unknown as UserSession;
   } catch (error) {
     console.log("Failed to verify session");
     return null;
