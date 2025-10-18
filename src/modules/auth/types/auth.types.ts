@@ -5,12 +5,18 @@ export interface Credentials {
 }
 
 // Representa el token de autenticación devuelto tras un inicio de sesión exitoso
-export interface AuthToken {
-  token: string;
+export type AuthToken = string;
+
+// Representa la información del usuario autenticado
+export interface User {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  avatar: string;
 }
 
-// Representa el resultado de una operación de autenticación
-export interface AuthResult {
-  success: boolean;
-  message?: string;
+export interface AuthResponse {
+  token: AuthToken;
+  user: User;
 }
