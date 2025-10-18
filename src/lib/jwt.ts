@@ -18,7 +18,7 @@ const encodedKey = new TextEncoder().encode(secretKey);
  * @param payload - Cuerpo del JWT
  * @returns - Token JWT encriptado
  */
-export async function encrypt(payload: JWTPayload) {
+export async function encrypt(payload: JWTPayload): Promise<string> {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -29,15 +29,18 @@ export async function encrypt(payload: JWTPayload) {
 /**
  * Función para verificar y desencriptar el token JWT de sesión
  * @param session - Token JWT de la sesión a verificar, por defecto cadena vacía
- * @returns - Cuerpo decodificado del JWT
+ * @returns - Cuerpo decodificado del JWT o null si falla
  */
-export async function decrypt(session: string | undefined = "") {
+export async function decrypt(
+  session: string | undefined = "",
+): Promise<SessionPayload | null> {
   try {
     const { payload } = await jwtVerify(session, encodedKey, {
       algorithms: ["HS256"],
     });
-    return payload;
+    return payload as unknown as SessionPayload;
   } catch (error) {
     console.log("Failed to verify session");
+    return null;
   }
 }
