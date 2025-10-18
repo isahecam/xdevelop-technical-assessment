@@ -36,7 +36,9 @@ export async function login(formData: FormData): Promise<ActionResult> {
 
   // Realizamos el intento de inicio de sesión, obteniendo el token de autenticación
   try {
+    // Intentamos iniciar sesión con las credenciales proporcionadas y obtenemos la información del usuario
     const result = await signIn({ email, password });
+
     // Creamos una session del usuario almacenando el id en una cookie HTTP-only
     await createSession(result?.user.id.toString()!);
   } catch (error: unknown) {
