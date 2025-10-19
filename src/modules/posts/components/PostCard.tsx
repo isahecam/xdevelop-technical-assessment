@@ -12,12 +12,7 @@ import {
 import { Heart } from "lucide-react";
 import Link from "next/link";
 
-export function PostCard({
-  id,
-  title,
-  body,
-  userId,
-}: Pick<Post, "id" | "title" | "body" | "userId">) {
+export function PostCard({ id, title, body, userId }: Post) {
   return (
     <Card>
       <CardHeader className='grow'>
