@@ -1,3 +1,5 @@
+"use server";
+
 import { User, UserResponse } from "@/modules/users/types/user.types";
 
 export async function getUser(userId: User["id"]): Promise<User | null> {
