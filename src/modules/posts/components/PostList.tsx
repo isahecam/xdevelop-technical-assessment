@@ -1,8 +1,8 @@
 "use client";
 
-import { usePosts } from "../hooks/usePosts";
-import { PostCard } from "./PostCard";
-import { PostListSkeleton } from "./skeletons/PostSkeletons";
+import { PostCard } from "@/modules/posts/components/PostCard";
+import { PostListSkeleton } from "@/modules/posts/components/skeletons/PostListSkeleton";
+import { usePosts } from "@/modules/posts/hooks/usePosts";
 
 export function PostList() {
   const { data, isLoading, error } = usePosts();
