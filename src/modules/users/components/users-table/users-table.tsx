@@ -1,14 +1,14 @@
 "use client";
-import { getUsers } from "@/app/_actions/get-users";
-import { User } from "@/modules/users/types/user.types";
+
+import { getAllUsers } from "@/modules/users/services/getAllUsers";
 import { useQuery } from "@tanstack/react-query";
-import { DataTable } from "./data-table";
 import { columns } from "./colums";
+import { DataTable } from "./data-table";
 
 export function UsersTable() {
-  const { data, isLoading, error } = useQuery<User[]>({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["users"],
-    queryFn: getUsers,
+    queryFn: getAllUsers,
   });
 
   if (isLoading) return <div>Cargando usuarios...</div>;
