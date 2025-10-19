@@ -1,7 +1,8 @@
 "use client";
 
+import { getRandomRole } from "@/lib/getRandomRole";
 import { User } from "@/modules/users/types/user.types";
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui";
+import { Avatar, AvatarFallback, AvatarImage, Badge } from "@/shared/ui";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const columns: ColumnDef<User>[] = [
@@ -18,6 +19,14 @@ export const columns: ColumnDef<User>[] = [
   {
     header: "Nombre completo",
     accessorFn: row => `${row.first_name} ${row.last_name}`,
+  },
+  {
+    header: "Rol",
+    accessorKey: "role",
+    cell: ({ row }) => {
+      const { id, name } = getRandomRole();
+      return <Badge variant={id === "admin" ? "admin" : "user"}>{name}</Badge>;
+    },
   },
   {
     header: "Avatar",
