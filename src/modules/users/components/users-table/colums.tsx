@@ -8,12 +8,10 @@ export const columns: ColumnDef<User>[] = [
   {
     header: "ID",
     accessorKey: "id",
-    filterFn: "equalsString",
   },
   {
     header: "Correo",
     accessorKey: "email",
-    filterFn: "includesStringSensitive",
   },
   {
     header: "Nombre completo",
