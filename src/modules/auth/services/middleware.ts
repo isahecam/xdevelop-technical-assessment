@@ -2,7 +2,7 @@ import { getSession } from "./session";
 import { NextResponse, type NextRequest } from "next/server";
 
 // Especificación de rutas publicas y privadas
-const PROTECTED_ROUTES = ["/users"];
+const PROTECTED_ROUTES = ["/users", "/posts"];
 const PUBLIC_ROUTES = ["/", "/login"];
 
 export async function middlewareAuth(request: NextRequest) {
