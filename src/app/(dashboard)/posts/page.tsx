@@ -1,3 +1,5 @@
+import { Posts } from "@/modules/posts/components/Posts";
+
 export default async function PostsPage() {
-  return <h2>Posts Page - Protected Route</h2>;
+  return <Posts />;
 }
