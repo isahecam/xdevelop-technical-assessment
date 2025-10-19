@@ -1,4 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage, Button } from "@/shared//ui";
+import { LogoutButton } from "@/modules/auth/components/LogoutButton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/shared//ui";
 import { User } from "../types/user.types";
 
 export function UserProfile({
@@ -24,11 +25,7 @@ export function UserProfile({
           <span>{email}</span>
         </div>
       </div>
-      <Button
-        size='sm'
-        className='max-w-max rounded-full bg-purple-700 px-4 py-2 text-white'>
-        Cerrar sesión
-      </Button>
+      <LogoutButton />
     </article>
   );
 }
