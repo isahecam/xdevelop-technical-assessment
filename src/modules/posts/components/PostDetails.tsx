@@ -1,5 +1,9 @@
 "use client";
 
+import { PostComments } from "@/modules/posts/components/PostComments";
+import { PostDetailsSkeleton } from "@/modules/posts/components/skeletons/PostDetailsSkeleton";
+import { usePost } from "@/modules/posts/hooks/usePost";
+import { Post } from "@/modules/posts/types/post.types";
 import { UserProfileContainer } from "@/modules/users/components/UserCardContainer";
 import {
   Button,
@@ -13,10 +17,6 @@ import {
 } from "@/shared/ui";
 import { MessagesSquare } from "lucide-react";
 import { useState } from "react";
-import { usePost } from "../hooks/usePost";
-import { Post } from "../types/post.types";
-import { PostComments } from "./PostComments";
-import { PostDetailsSkeleton } from "./skeletons/PostDetailsSkeleton";
 
 export function PostDetails({ postId }: { postId: Post["id"] }) {
   const [showComments, setShowComments] = useState<boolean>(false);
