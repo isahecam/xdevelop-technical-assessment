@@ -56,5 +56,5 @@ export async function login(formData: FormData): Promise<ActionResult> {
 
 export async function logout() {
   await deleteSession();
-  redirect("/login");
+  redirect("/");
 }
