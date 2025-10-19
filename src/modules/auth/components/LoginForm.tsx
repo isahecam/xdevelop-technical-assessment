@@ -13,6 +13,7 @@ import {
 } from "@/shared/ui/";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import { SubmitButton } from "./SubmitButton";
 
 export function LoginForm() {
   const router = useRouter();
@@ -61,21 +62,10 @@ export function LoginForm() {
               />
             </div>
           </div>
-          <Button type='submit' className='w-full bg-purple-800'>
+          <SubmitButton type='submit' className='w-full bg-purple-800'>
             Iniciar sesión
-          </Button>
+          </SubmitButton>
         </form>
-
-        {/* <form
-          action={async () => {
-            "use server";
-            await logout();
-            redirect("/");
-          }}>
-          <Button type='submit' className='w-full bg-purple-800'>
-            Cerrar sesión
-          </Button>
-        </form> */}
       </CardContent>
     </Card>
   );
