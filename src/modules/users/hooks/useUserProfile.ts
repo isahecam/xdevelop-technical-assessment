@@ -1,7 +1,7 @@
 "use client";
 
+import { getUserById } from "@/modules/users/services/getUserById";
 import { useQuery } from "@tanstack/react-query";
-import { getUserById } from "../services/getUserById";
 
 export function useUserProfile(userId: number) {
   const { data, isLoading, error } = useQuery({
