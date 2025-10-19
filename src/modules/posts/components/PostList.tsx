@@ -1,11 +1,11 @@
 "use client";
 
-import { usePost } from "../hooks/usePost";
+import { usePosts } from "../hooks/usePosts";
 import { PostCard } from "./PostCard";
 import { PostListSkeleton } from "./skeletons/PostSkeletons";
 
 export function PostList() {
-  const { data, isLoading, error } = usePost();
+  const { data, isLoading, error } = usePosts();
 
   if (isLoading) return <PostListSkeleton />;
   if (error) return <div>Error al cargar las publicaciones.</div>;
