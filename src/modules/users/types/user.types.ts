@@ -19,12 +19,18 @@ export interface Support {
   text: string;
 }
 
+export interface Role {
+  id: string;
+  name: string;
+}
+
 export interface User {
   id: number;
   email: string;
   first_name: string;
   last_name: string;
   avatar: string;
+  role?: Role;
 }
 
 export interface UserListResponse {
