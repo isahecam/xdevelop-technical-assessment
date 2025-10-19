@@ -1,5 +1,6 @@
 "use server";
 
+import { getRandomRole } from "@/lib/getRandomRole";
 import { User, UserResponse } from "@/modules/users/types/user.types";
 
 export async function getUser(userId: User["id"]): Promise<User | null> {
@@ -16,5 +17,9 @@ export async function getUser(userId: User["id"]): Promise<User | null> {
   }
 
   const { data } = (await user.json()) as UserResponse;
-  return data;
+
+  // Asignamos un rol aleatorio al usuario
+  const userWithRole = { ...data, role: getRandomRole() };
+
+  return userWithRole;
 }
