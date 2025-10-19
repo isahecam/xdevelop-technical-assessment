@@ -3,7 +3,7 @@ import { UserCard } from "./UserCard";
 import { UserCardSkeleton } from "./skeletons/UserSkeletons";
 
 export function UserProfileContainer({ userId }: { userId: number }) {
-  const { data, isLoading, error } = useUserProfile(userId);
+  const { data, isLoading } = useUserProfile(userId);
 
   if (isLoading) return <UserCardSkeleton />;
   if (!data) return <div>Usuario no encontrado</div>;
