@@ -1,5 +1,5 @@
 import { getSession } from "@/modules/auth/services/session";
-import { UsersTable } from "@/modules/users/components/records/users-table";
+import { UsersTable } from "@/modules/users/components/users-table/users-table";
 import { UserProfile } from "@/modules/users/components/UserProfile";
 import { getUser } from "@/modules/users/services/getUser";
 import { redirect } from "next/navigation";
