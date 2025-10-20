@@ -10,7 +10,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/shared/ui/pagination";
-import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
 export function BooksPagination({ totalPages }: { totalPages: number | null }) {
