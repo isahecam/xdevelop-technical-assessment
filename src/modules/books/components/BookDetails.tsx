@@ -30,7 +30,7 @@ export function BookDetails({ bookId }: { bookId: Book["key"] }) {
                 __html:
                   data.description?.value ||
                   data.description ||
-                  "No description",
+                  "Sin descripción disponible.",
               }}
             />
           </CardDescription>
