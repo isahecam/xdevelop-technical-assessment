@@ -7,7 +7,7 @@ interface FavoritePostsState {
   removeFavoritePost: (postId: number) => void;
 }
 
-export const useFavoritePostsStore = create<FavoritePostsState>((set, get) => ({
+export const useFavoritePostsStore = create<FavoritePostsState>(set => ({
   favoritePosts: [],
 
   addFavoritePost: (post: Post) =>
