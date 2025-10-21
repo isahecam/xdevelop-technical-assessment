@@ -43,6 +43,7 @@ export function BookDetails({ bookId }: { bookId: Book["key"] }) {
                 : "https://placehold.co/600x400"
             }
             unoptimized
+            priority={true}
             alt='Book Cover'
             width={150}
             height={200}
