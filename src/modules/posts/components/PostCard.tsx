@@ -1,3 +1,4 @@
+import { useFavoritePostsStore } from "@/modules/posts/store/favoritePosts.store";
 import { Post } from "@/modules/posts/types/post.types";
 import { UserProfileContainer } from "@/modules/users/components/UserCardContainer";
 import {
@@ -13,6 +14,19 @@ import { Heart } from "lucide-react";
 import Link from "next/link";
 
 export function PostCard({ id, title, body, userId }: Post) {
+  const { addFavoritePost, favoritePosts, removeFavoritePost } =
+    useFavoritePostsStore();
+
+  const isFavorite = favoritePosts.some(post => post.id === id);
+
+  const handleFavoriteClick = () => {
+    if (isFavorite) {
+      removeFavoritePost(id);
+    } else {
+      addFavoritePost({ id, title, body, userId });
+    }
+  };
+
   return (
     <Card>
       <CardHeader className='grow'>
@@ -32,8 +46,12 @@ export function PostCard({ id, title, body, userId }: Post) {
           <Button
             size='icon'
             variant='outline'
-            className='group size-8 hover:bg-red-200 active:scale-105'>
-            <Heart className='size-3 group-hover:fill-red-500' stroke='red' />
+            className='group size-8 hover:bg-red-200 active:scale-105'
+            onClick={handleFavoriteClick}>
+            <Heart
+              className={`size-3 group-hover:fill-red-500 ${isFavorite ? "fill-red-500" : "fill-none"}`}
+              stroke='red'
+            />
           </Button>
         </CardAction>
       </CardHeader>
