@@ -1,7 +1,7 @@
 "use client";
 
 import { PostCard } from "@/modules/posts/components/PostCard";
-import { useFavoritePostsStore } from "../store/favoritePosts.store";
+import { useFavoritePostsStore } from "@/modules/posts/store/favoritePosts.store";
 
 export function FavoritePostsList() {
   const { favoritePosts } = useFavoritePostsStore();
