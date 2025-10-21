@@ -11,6 +11,7 @@ const navLinks: NavLink[] = [
   { id: 2, label: "Users", to: "/users" },
   { id: 3, label: "Posts", to: "/posts" },
   { id: 4, label: "Books", to: "/books" },
+  { id: 5, label: "Posts Favoritos", to: "/posts/favorites" },
 ];
 
 export function Navbar() {
